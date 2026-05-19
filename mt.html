@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mathematics Quiz</title>
+
+  <style>
+    body{
+      margin:0;
+      padding:0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff9966, #ff5e62);
+    }
+
+    .container{
+      width:80%;
+      max-width:700px;
+      margin:50px auto;
+      background:white;
+      padding:30px;
+      border-radius:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    h1{
+      text-align:center;
+      color:#ff5e62;
+    }
+
+    #question{
+      font-size:22px;
+      font-weight:bold;
+      margin-bottom:20px;
+      color:#333;
+    }
+
+    .option{
+      display:block;
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      border:none;
+      border-radius:8px;
+      background:#f1f1f1;
+      cursor:pointer;
+      font-size:16px;
+      transition:0.3s;
+    }
+
+    .option:hover{
+      background:#ff5e62;
+      color:white;
+    }
+
+    #result{
+      margin-top:20px;
+      text-align:center;
+      font-size:20px;
+      font-weight:bold;
+    }
+
+    #nextBtn{
+      display:none;
+      margin-top:20px;
+      padding:12px 20px;
+      border:none;
+      border-radius:8px;
+      background:#28a745;
+      color:white;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    #nextBtn:hover{
+      background:#1e7e34;
+    }
+
+    .score{
+      text-align:right;
+      margin-bottom:15px;
+      font-weight:bold;
+      color:#555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Mathematics Quiz</h1>
+
+    <div class="score" id="scoreBox">
+      Score: 0
+    </div>
+
+    <div id="question"></div>
+
+    <div id="answers"></div>
+
+    <div id="result"></div>
+
+    <button id="nextBtn">Next Question</button>
+
+  </div>
+
+<script>
+
+const quiz = [
+
+  {
+    question: "What is 12 × 8?",
+    answers: ["96", "88", "108", "86"],
+    correct: "96"
+  },
+
+  {
+    question: "What is the square root of 144?",
+    answers: ["10", "11", "12", "14"],
+    correct: "12"
+  },
+
+  {
+    question: "Solve: 15 + 9 ÷ 3",
+    answers: ["8", "18", "24", "6"],
+    correct: "18"
+  },
+
+  {
+    question: "What is the value of π (pi) approximately?",
+    answers: ["2.14", "3.14", "4.13", "5.14"],
+    correct: "3.14"
+  },
+
+  {
+    question: "What is 25% of 200?",
+    answers: ["25", "40", "50", "60"],
+    correct: "50"
+  }
+
+];
+
+let current = 0;
+let score = 0;
+
+const question = document.getElementById("question");
+const answers = document.getElementById("answers");
+const result = document.getElementById("result");
+const nextBtn = document.getElementById("nextBtn");
+const scoreBox = document.getElementById("scoreBox");
+
+function loadQuiz(){
+
+  result.innerHTML = "";
+  nextBtn.style.display = "none";
+
+  let q = quiz[current];
+
+  question.innerHTML = q.question;
+
+  answers.innerHTML = "";
+
+  q.answers.forEach(answer => {
+
+    let button = document.createElement("button");
+
+    button.innerHTML = answer;
+
+    button.classList.add("option");
+
+    button.onclick = () => checkAnswer(answer);
+
+    answers.appendChild(button);
+
+  });
+
+}
+
+function checkAnswer(selected){
+
+  if(selected === quiz[current].correct){
+
+    result.innerHTML = "✅ Correct!";
+    result.style.color = "green";
+
+    score++;
+
+  } else {
+
+    result.innerHTML =
+      "❌ Wrong! Correct answer is: "
+      + quiz[current].correct;
+
+    result.style.color = "red";
+  }
+
+  scoreBox.innerHTML = "Score: " + score;
+
+  nextBtn.style.display = "inline-block";
+}
+
+nextBtn.onclick = () => {
+
+  current++;
+
+  if(current < quiz.length){
+
+    loadQuiz();
+
+  } else {
+
+    finishQuiz();
+
+  }
+
+};
+
+function finishQuiz(){
+
+  question.innerHTML = "🎉 Quiz Finished!";
+
+  answers.innerHTML = "";
+
+  result.innerHTML =
+    "Your Final Score: " + score + " / " + quiz.length;
+
+  result.style.color = "#ff5e62";
+
+  nextBtn.style.display = "none";
+}
+
+loadQuiz();
+
+</script>
+
+</body>
+</html>

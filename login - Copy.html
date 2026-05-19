@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>login</title>
+
+    <style> .login-section{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:60px 20px;
+    background:transparent;
+}
+
+.login-box{
+    background:linear-gradient(600deg,black,yellow);
+    width:350px;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.login-box h2{
+    margin-bottom:20px;
+    color:#007bff;
+    text-transform:capitalize;
+}
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+    outline:none;
+}
+
+.login-box input:focus{
+    border-color:#007bff;
+}
+
+.login-box button{
+    width:100%;
+    padding:12px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.login-box button:hover{
+    background:#0056b3;
+}
+</style>
+
+<body>
+<section class="login-section"id="login">
+        <div class="login-box">
+            <h2>login</h2>
+            <form>
+
+                <!--email-->
+
+                <input
+                type="email"
+                placeholder="enter email"
+                required>
+
+                <!--username-->
+
+                <input
+                type="text"
+                 placeholder="enter username"
+                 required>
+
+                 <!--pasward-->
+
+                 <input
+                 type="password"
+                 placeholder="enter password"
+                 required>
+                 <!--login button-->
+                 <button type="submit">
+                    login
+                 </button>
+                
+            </form>
+        </div>
+    </section>
+    </body>

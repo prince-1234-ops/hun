@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Physics Quiz</title>
+
+  <style>
+    body{
+      margin:0;
+      padding:0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color:white;
+    }
+
+    .container{
+      width:80%;
+      max-width:700px;
+      margin:50px auto;
+      background:white;
+      color:black;
+      padding:30px;
+      border-radius:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    h1{
+      text-align:center;
+      color:#243b55;
+    }
+
+    #question{
+      font-size:22px;
+      margin-bottom:20px;
+      font-weight:bold;
+    }
+
+    .option{
+      display:block;
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      border:none;
+      border-radius:8px;
+      background:#e0e0e0;
+      cursor:pointer;
+      font-size:16px;
+      transition:0.3s;
+    }
+
+    .option:hover{
+      background:#243b55;
+      color:white;
+    }
+
+    #result{
+      margin-top:20px;
+      font-size:20px;
+      font-weight:bold;
+      text-align:center;
+    }
+
+    #nextBtn{
+      display:none;
+      margin-top:20px;
+      padding:12px 20px;
+      border:none;
+      border-radius:8px;
+      background:#00b894;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    #nextBtn:hover{
+      background:#00997a;
+    }
+
+    .score{
+      text-align:right;
+      font-weight:bold;
+      margin-bottom:20px;
+      color:#555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Physics Quiz</h1>
+
+    <div class="score" id="scoreBox">
+      Score: 0
+    </div>
+
+    <div id="question"></div>
+
+    <div id="answers"></div>
+
+    <div id="result"></div>
+
+    <button id="nextBtn">Next Question</button>
+
+  </div>
+
+<script>
+
+const quiz = [
+  {
+    question: "What is the SI unit of force?",
+    answers: ["Joule", "Newton", "Pascal", "Watt"],
+    correct: "Newton"
+  },
+
+  {
+    question: "What is the speed of light?",
+    answers: [
+      "3 × 10^8 m/s",
+      "3 × 10^6 m/s",
+      "300 m/s",
+      "1500 m/s"
+    ],
+    correct: "3 × 10^8 m/s"
+  },
+
+  {
+    question: "Who discovered gravity?",
+    answers: [
+      "Albert Einstein",
+      "Isaac Newton",
+      "Galileo",
+      "Faraday"
+    ],
+    correct: "Isaac Newton"
+  },
+
+  {
+    question: "Which instrument measures temperature?",
+    answers: [
+      "Barometer",
+      "Ammeter",
+      "Thermometer",
+      "Voltmeter"
+    ],
+    correct: "Thermometer"
+  },
+
+  {
+    question: "Energy stored in a stretched spring is called?",
+    answers: [
+      "Kinetic Energy",
+      "Solar Energy",
+      "Potential Energy",
+      "Heat Energy"
+    ],
+    correct: "Potential Energy"
+  }
+];
+
+let current = 0;
+let score = 0;
+
+const question = document.getElementById("question");
+const answers = document.getElementById("answers");
+const result = document.getElementById("result");
+const nextBtn = document.getElementById("nextBtn");
+const scoreBox = document.getElementById("scoreBox");
+
+function loadQuiz(){
+
+  result.innerHTML = "";
+  nextBtn.style.display = "none";
+
+  let q = quiz[current];
+
+  question.innerHTML = q.question;
+
+  answers.innerHTML = "";
+
+  q.answers.forEach(answer => {
+
+    let button = document.createElement("button");
+
+    button.innerHTML = answer;
+
+    button.classList.add("option");
+
+    button.onclick = () => checkAnswer(answer);
+
+    answers.appendChild(button);
+
+  });
+
+}
+
+function checkAnswer(selected){
+
+  if(selected === quiz[current].correct){
+
+    result.innerHTML = "✅ Correct Answer!";
+    result.style.color = "green";
+
+    score++;
+
+  } else {
+
+    result.innerHTML =
+      "❌ Wrong Answer! Correct answer is: "
+      + quiz[current].correct;
+
+    result.style.color = "red";
+  }
+
+  scoreBox.innerHTML = "Score: " + score;
+
+  nextBtn.style.display = "inline-block";
+}
+
+nextBtn.onclick = () => {
+
+  current++;
+
+  if(current < quiz.length){
+
+    loadQuiz();
+
+  } else {
+
+    finishQuiz();
+
+  }
+
+};
+
+function finishQuiz(){
+
+  question.innerHTML = "🎉 Quiz Completed!";
+
+  answers.innerHTML = "";
+
+  result.innerHTML =
+    "Final Score: " + score + " / " + quiz.length;
+
+  result.style.color = "#243b55";
+
+  nextBtn.style.display = "none";
+}
+
+loadQuiz();
+
+</script>
+
+</body>
+</html>
